@@ -1,0 +1,123 @@
+﻿<Window x:Class="UkaUart0.MVVM.View.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UkaUart0.MVVM.View"
+        mc:Ignorable="d"
+        Title="MainView" Height="450" Width="800" ResizeMode="CanMinimize">
+    <Grid Background="DarkGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--Communication type select-->
+        <DockPanel Grid.Column="0"
+                   Grid.Row="0"
+            VerticalAlignment="Top" 
+           HorizontalAlignment="Left" 
+           Width="150">
+            <Menu DockPanel.Dock="Top"
+          Background="LightYellow">
+                <MenuItem Header="Serial">
+                    <MenuItem MouseEnter ="MouseEnterExitArea"
+                      MouseLeave ="MouseLeaveArea" 
+                      Click ="Serial_Click"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Ethernet">
+                    <MenuItem MouseEnter ="MouseEnterToolsHintsArea"
+                      MouseLeave ="MouseLeaveArea" 
+                      Click ="Ethernet_Click"/>
+                </MenuItem>
+            </Menu>
+            <Button>Start</Button>
+        </DockPanel>
+        <!--Side Menu-->
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+            <Button>Stop</Button>
+            <Canvas Height="250" Background="LightGoldenrodYellow"></Canvas>
+            <Button>Logs</Button>
+            <Image></Image>
+            <Button >Settings</Button>
+        </StackPanel>
+        <!--Communication details-->
+        <StackPanel 
+            Grid.Row="0" 
+            Grid.Column="1"
+            Orientation="Horizontal"
+            CanHorizontallyScroll="False"
+            Height="25"
+            Background="LightYellow">
+            <Label Content="Port"/>
+            <ComboBox MinWidth="75"/>
+            <Label Content="BaudRate"/>
+            <ComboBox MinWidth="75"/>
+            <Label Content="Parity"/>
+            <ComboBox MinWidth="75"/>
+            <Label Content="StopBit"/>
+            <ComboBox MinWidth="75"/>
+            <Label Content="HandShake"/>
+            <ComboBox MinWidth="75"/>
+        </StackPanel>
+        <Grid Grid.Row="1"
+              Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--Card 1-->
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Card 1 Channel 1-->
+                <Grid Grid.Row="0" 
+                      Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Ellipse x:Name="Card1Channel1" Width="20" Height="20" Fill="LightGreen"
+                             ButtonBase.Click="Ellipse_Click"/>
+                    <Label Content="I" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1"/>
+                    <Ellipse Height="15" Width="15" 
+                             Grid.Row="1" Grid.Column="0"
+                             Fill="Beige"/>
+                    <Ellipse Width="25" Height="15" Fill="PaleVioletRed"
+                             Grid.Column="1"
+                             Grid.Row="1"/>
+                    <Ellipse Grid.Row="2"
+                             Grid.Column="0" 
+                             Height="15" Width="15" Fill="Beige"/>
+                    <Ellipse Width="25" Height="15" Fill="PaleVioletRed"
+                             Grid.Row="2"
+                             Grid.Column="1"/>
+                    <Ellipse Content="V" 
+                           Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center"/>
+                    <Ellipse Width="25" Height="15" Fill="PaleVioletRed"
+                             Grid.Column="1"
+                             Grid.Row="3"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
