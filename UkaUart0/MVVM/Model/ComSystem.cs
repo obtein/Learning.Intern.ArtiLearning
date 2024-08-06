@@ -93,9 +93,9 @@ namespace UkaUart0.MVVM.Model
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged ( string v )
+        private void OnPropertyChanged ( string propertyName )
         {
-            throw new NotImplementedException();
+            PropertyChanged?.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
         }
     }
 }
