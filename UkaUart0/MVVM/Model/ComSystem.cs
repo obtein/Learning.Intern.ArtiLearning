@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -11,8 +13,11 @@ namespace UkaUart0.MVVM.Model
 {
     class ComSystem : INotifyPropertyChanged
     {
-        private List<Card>? cardList;
-        public List<Card>? CardList 
+        public int CardIndexUpdated { get; set; }
+        public int ChannelIndexUpdated { get; set; }
+
+        private ObservableCollection<Card> cardList;
+        public ObservableCollection<Card> CardList 
         {
             get => cardList;
             set
@@ -42,7 +47,8 @@ namespace UkaUart0.MVVM.Model
             if ( selectedCommunication == 1 )
                 EthernetCommunicationModel = new EthernetCommunication();
             DataHandlerModel = new DataHandler();
-            CardList = new List<Card>();
+            CardList = new ObservableCollection<Card>();
+            PopulateCards(3);
         }
 
         /// <summary>
@@ -56,8 +62,9 @@ namespace UkaUart0.MVVM.Model
         {
             for ( int i = 0; i < cardCount; i++ )
             {
-                Card card = new Card();
+                Card card = new Card(i+1,8);
                 card.ChannelList = new List<Channel>();
+
                 card.CardTemp = 0;
                 card.CardVoltage = 0;
                 card.IsOpen = true;
@@ -75,20 +82,36 @@ namespace UkaUart0.MVVM.Model
                 }
                 CardList.Add( card );
             }
-            PopulateCards();
+            //PopulateCards();
         }
         /// <summary>
         /// helper function for CreateSystem
         /// </summary>
-        private void PopulateCards ()
+        private void PopulateCards (int cardCount)
         {
-            foreach ( Card c in CardList )
+            for (int i = 0; i < cardCount; i++ )
             {
-                for ( int i = 0; i < c.ChannelCount; i++ )
-                {
-                    c.ChannelList.Add(new Channel());
-                }
+                Card card = new Card(i+1,8);
+                card.PropertyChanged += Card_PropertyChanged;
+                CardList.Add( card);
             }
+        }
+
+        private void Card_PropertyChanged ( object? sender, PropertyChangedEventArgs e )
+        {
+            OnPropertyChanged( e.PropertyName );
+        }
+
+
+        private int [] FindChannelDetails(string input)
+        {
+            int [] result = new int [2];
+            int tempIndex = input.IndexOf (" ");
+            string tempCardIndex = input.Substring(tempIndex,2);
+            string tempChannelIndex = input.Substring(tempIndex+2,2);
+            result [0] = Convert.ToInt32( tempCardIndex );
+            result [1] = Convert.ToInt32( tempChannelIndex );
+            return result;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -77,7 +77,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <!--Card 1-->
-            <Grid Grid.Column="0" Margin="0,0,15,0" Visibility="{Binding Card1Visibility[0], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <Grid Grid.Column="0" Margin="0,0,15,0" 
+                  Visibility="{Binding Card1Visibility[0], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -90,7 +91,7 @@
                 </Grid.RowDefinitions>
                 <!--Card 1 Channel 1-->
                 <Grid Grid.Row="0"
-                      Grid.Column="0">
+                      Grid.Column="0" Visibility="{Binding Card1Visibility[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -190,7 +191,7 @@
                 </Grid>
                 <!--Card 1 Channel 2-->
                 <Grid Grid.Row="0" 
-                      Grid.Column="1">
+                      Grid.Column="1" Visibility="{Binding Card1Visibility[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -287,7 +288,7 @@
                 </Grid>
                 <!--Card 1 Channel 3-->
                 <Grid Grid.Row="1" 
-                      Grid.Column="0">
+                      Grid.Column="0" Visibility="{Binding Card1Visibility[3], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -385,7 +386,7 @@
                 </Grid>
                 <!--Card 1 Channel 4-->
                 <Grid Grid.Row="1" 
-                      Grid.Column="1">
+                      Grid.Column="1"  Visibility="{Binding Card1Visibility[4], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -483,7 +484,7 @@
                 </Grid>
                 <!--Card 1 Channel 5-->
                 <Grid Grid.Row="2"
-                      Grid.Column="0">
+                      Grid.Column="0" Visibility="{Binding Card1Visibility[5], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -582,7 +583,7 @@
                 </Grid>
                 <!--Card 1 Channel 6-->
                 <Grid Grid.Row="2"
-                      Grid.Column="1">
+                      Grid.Column="1" Visibility="{Binding Card1Visibility[6], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -680,7 +681,7 @@
                 </Grid>
                 <!--Card 1 Channel 7-->
                 <Grid Grid.Row="3"
-                      Grid.Column="0">
+                      Grid.Column="0" Visibility="{Binding Card1Visibility[7], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -778,7 +779,7 @@
                 </Grid>
                 <!--Card 1 Channel 8-->
                 <Grid Grid.Row="3"
-                      Grid.Column="1">
+                      Grid.Column="1" Visibility="{Binding Card1Visibility[8], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -876,7 +877,7 @@
                 </Grid>
             </Grid>
             <!--Card 2-->
-            <Grid Grid.Column="1" Margin="0,0,15,0">
+            <Grid Grid.Column="1" Margin="0,0,15,0" Visibility="{Binding Card2Visibility[0], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -889,7 +890,8 @@
                 </Grid.RowDefinitions>
                 <!--Card 2 Channel 1-->
                 <Grid Grid.Row="0"
-                      Grid.Column="0" Visibility="{Binding Card2Visibility[1]}">
+                      Grid.Column="0" 
+                      Visibility="{Binding Card2Visibility[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -988,7 +990,8 @@
                 </Grid>
                 <!--Card 2 Channel 2-->
                 <Grid Grid.Row="0"
-                      Grid.Column="1">
+                      Grid.Column="1" 
+                      Visibility="{Binding Card2Visibility[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1084,7 +1087,8 @@
                 </Grid>
                 <!--Card 2 Channel 3-->
                 <Grid Grid.Row="1"
-                      Grid.Column="0">
+                      Grid.Column="0" 
+                      Visibility="{Binding Card2Visibility[3], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1181,7 +1185,8 @@
                 </Grid>
                 <!--Card 2 Channel 4-->
                 <Grid Grid.Row="1"
-                      Grid.Column="1">
+                      Grid.Column="1" 
+                      Visibility="{Binding Card2Visibility[4], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1279,7 +1284,8 @@
                 </Grid>
                 <!--Card 2 Channel 5-->
                 <Grid Grid.Row="2"
-                      Grid.Column="0">
+                      Grid.Column="0" 
+                      Visibility="{Binding Card2Visibility[5], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1377,7 +1383,8 @@
                 </Grid>
                 <!--Card 2 Channel 6-->
                 <Grid Grid.Row="2"
-                      Grid.Column="1">
+                      Grid.Column="1" 
+                      Visibility="{Binding Card2Visibility[6], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1475,7 +1482,8 @@
                 </Grid>
                 <!--Card 2 Channel 7-->
                 <Grid Grid.Row="3"
-                      Grid.Column="0">
+                      Grid.Column="0" 
+                      Visibility="{Binding Card2Visibility[7], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1573,7 +1581,8 @@
                 </Grid>
                 <!--Card 2 Channel 8-->
                 <Grid Grid.Row="3"
-                      Grid.Column="1">
+                      Grid.Column="1" 
+                      Visibility="{Binding Card2Visibility[8], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1671,7 +1680,8 @@
                 </Grid>
             </Grid>
             <!--Card 3-->
-            <Grid Grid.Column="2" Margin="0,0,15,0">
+            <Grid Grid.Column="2" Margin="0,0,15,0" 
+                  Visibility="{Binding Card3Visibility[0], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -1684,7 +1694,8 @@
                 </Grid.RowDefinitions>
                 <!--Card 3 Channel 1-->
                 <Grid Grid.Row="0"
-                      Grid.Column="0">
+                      Grid.Column="0" 
+                      Visibility="{Binding Card3Visibility[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1783,7 +1794,8 @@
                 </Grid>
                 <!--Card 3 Channel 2-->
                 <Grid Grid.Row="0"
-                      Grid.Column="1">
+                      Grid.Column="1" 
+                      Visibility="{Binding Card3Visibility[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1880,7 +1892,8 @@
                 </Grid>
                 <!--Card 3 Channel 3-->
                 <Grid Grid.Row="1"
-                      Grid.Column="0">
+                      Grid.Column="0" 
+                      Visibility="{Binding Card3Visibility[3], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1978,7 +1991,8 @@
                 </Grid>
                 <!--Card 3 Channel 4-->
                 <Grid Grid.Row="1"
-                      Grid.Column="1">
+                      Grid.Column="1" 
+                      Visibility="{Binding Card3Visibility[4], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -2076,7 +2090,8 @@
                 </Grid>
                 <!--Card 3 Channel 5-->
                 <Grid Grid.Row="2"
-                      Grid.Column="0">
+                      Grid.Column="0" 
+                      Visibility="{Binding Card3Visibility[5], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -2175,7 +2190,8 @@
                 </Grid>
                 <!--Card 3 Channel 6-->
                 <Grid Grid.Row="2"
-                      Grid.Column="1">
+                      Grid.Column="1" 
+                      Visibility="{Binding Card3Visibility[6], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -2273,7 +2289,8 @@
                 </Grid>
                 <!--Card 3 Channel 7-->
                 <Grid Grid.Row="3"
-                      Grid.Column="0">
+                      Grid.Column="0"
+                      Visibility="{Binding Card3Visibility[7], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -2371,7 +2388,8 @@
                 </Grid>
                 <!--Card 3 Channel 8-->
                 <Grid Grid.Row="3"
-                      Grid.Column="1" Visibility="{Binding Card3Visibility[8]}">
+                      Grid.Column="1" 
+                      Visibility="{Binding Card3Visibility[8], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
