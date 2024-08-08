@@ -8,6 +8,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using UkaUart0.MVVM.Model.CommunicationModels;
+using UkaUart0.MVVM.Model.DataModels;
 
 namespace UkaUart0.MVVM.Model
 {
@@ -16,19 +18,7 @@ namespace UkaUart0.MVVM.Model
         public int CardIndexUpdated { get; set; }
         public int ChannelIndexUpdated { get; set; }
 
-        private ObservableCollection<Card> cardList;
-        public ObservableCollection<Card> CardList 
-        {
-            get => cardList;
-            set
-            {
-                if ( cardList != value )
-                {
-                    cardList = value;
-                    OnPropertyChanged( nameof( CardList ) );
-                }
-            }
-        }
+        
 
         public SerialCommunication SerialCommunicationModel { get; set; }
         public EthernetCommunication EthernetCommunicationModel { get; set; }
@@ -43,16 +33,32 @@ namespace UkaUart0.MVVM.Model
         public ComSystem (int selectedCommunication)
         {
             if ( selectedCommunication == 0 )
-                SerialCommunicationModel = new SerialCommunication();
+            {
+                SerialCommunicationModel = new SerialCommunication( ctorPortName: "COM8",
+                                                                   ctorBaudRate: CommunicationConstants.BaudRateList [11],
+                                                                   ctorParity: CommunicationConstants.ParityList [0],
+                                                                   ctorDataBits: 8,
+                                                                   ctorStopBits: CommunicationConstants.StopBitList [0],
+                                                                   ctorHandshake: CommunicationConstants.HandShakeList [0],
+                                                                   ctorReadTimeout: -1,
+                                                                   ctorWriteTimeout: -1 );
+                SerialCommunicationModel.PropertyChanged += SerialCommunicationModel_PropertyChanged;
+            }
             if ( selectedCommunication == 1 )
+            {
                 EthernetCommunicationModel = new EthernetCommunication();
+            }
             DataHandlerModel = new DataHandler();
-            CardList = new ObservableCollection<Card>();
-            PopulateCards(3);
+            DataHandlerModel.PropertyChanged += DataHandlerModel_PropertyChanged;
+            DataHandlerModel.AnswerReady += DataHandlerModel_AnswerReady;
         }
 
         /// <summary>
         /// First enterance, it creates the sytem based on first received data
+        /// 
+        ///  TODO: Ilk başta cevap dönene kadar arayüze basma daha sonrasında ilk cevabı alınca serial com
+        ///  event ateşle bunu çağırsın(bool ile kontrol olabilir) (Datahandlerdaki 2li event gibi bişey)
+        /// 
         /// </summary>
         /// <param name="cardCount"></param>
         /// <param name="card1ChannelCount"></param>
@@ -84,25 +90,8 @@ namespace UkaUart0.MVVM.Model
             }
             //PopulateCards();
         }
-        /// <summary>
-        /// helper function for CreateSystem
-        /// </summary>
-        private void PopulateCards (int cardCount)
-        {
-            for (int i = 0; i < cardCount; i++ )
-            {
-                Card card = new Card(i+1,8);
-                card.PropertyChanged += Card_PropertyChanged;
-                CardList.Add( card);
-            }
-        }
-
-        private void Card_PropertyChanged ( object? sender, PropertyChangedEventArgs e )
-        {
-            OnPropertyChanged( e.PropertyName );
-        }
-
-
+        
+        
         private int [] FindChannelDetails(string input)
         {
             int [] result = new int [2];
@@ -112,6 +101,23 @@ namespace UkaUart0.MVVM.Model
             result [0] = Convert.ToInt32( tempCardIndex );
             result [1] = Convert.ToInt32( tempChannelIndex );
             return result;
+        }
+
+        private void SerialCommunicationModel_PropertyChanged ( object? sender, PropertyChangedEventArgs e )
+        {
+            // TODO:  Datahandler datayı işleyecek
+        }
+
+        private void DataHandlerModel_AnswerReady ( object? sender, PropertyChangedEventArgs e )
+        {
+            // TODO : Gelen cevaba göre aksiyon almasını sağla
+            SerialCommunicationModel.SendCardErrorInspection();
+        }
+
+        private void DataHandlerModel_PropertyChanged ( object? sender, PropertyChangedEventArgs e )
+        {
+            // TODO: burası direkt ui güncelleyecek
+            OnPropertyChanged( e.PropertyName );
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

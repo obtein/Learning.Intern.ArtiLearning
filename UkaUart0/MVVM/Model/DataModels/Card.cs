@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace UkaUart0.MVVM.Model
+namespace UkaUart0.MVVM.Model.DataModels
 {
     partial class Card : INotifyPropertyChanged
     {
