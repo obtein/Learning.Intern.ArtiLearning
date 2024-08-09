@@ -78,7 +78,8 @@
             </Grid.ColumnDefinitions>
             <!--Card 1-->
             <Grid Grid.Column="0" Margin="0,0,15,0" 
-                  Visibility="{Binding Card1Visibility[0], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                  Visibility="{Binding Card1Visibility[0], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -114,7 +115,7 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="LightBlue" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
                              StrokeStartLineCap="Round" StrokeLineJoin="Round" StrokeThickness="4">
                         <Ellipse.Stroke>
@@ -127,18 +128,21 @@
                     </Ellipse>
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch1 I: 25.7" FontFamily="Cascadia Mono" 
-                           FontSize="10" Foreground="#FF900A00"/>
+                           FontSize="10" Foreground="#FF900A00"
+                           Opacity="{Binding Card1Activity[1] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error #FF56FF00 for ok, Red for Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" 
                              StrokeThickness="3" 
                              StrokeDashCap="Round" 
                              Stretch="UniformToFill" StrokeEndLineCap="Round" 
-                             StrokeStartLineCap="Round">
+                             StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[1] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[2], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
+                                              Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -154,11 +158,12 @@
                              Height="20" Width="20" 
                              StrokeThickness="3" StrokeDashCap="Round" 
                              Stretch="UniformToFill" StrokeEndLineCap="Round" 
-                             StrokeStartLineCap="Round">
+                             StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[1] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[1], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -173,11 +178,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3" 
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[1] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[0], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -216,7 +222,8 @@
                              Height="20" Width="20"
                              Fill="LightGreen" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
-                             StrokeStartLineCap="Round" StrokeThickness="4">
+                             StrokeStartLineCap="Round" StrokeThickness="4"
+                             Opacity="{Binding Card1Activity[2] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -227,16 +234,18 @@
                     </Ellipse>
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch2 I: 25.7" FontFamily="Cascadia Mono"
-                           FontSize="10" Foreground="#FF900A00"/>
+                           FontSize="10" Foreground="#FF900A00"
+                           Opacity="{Binding Card1Activity[2] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3" 
                              StrokeDashCap="Round" Stretch="UniformToFill" 
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[2] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[5], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -251,11 +260,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3" 
                              StrokeDashCap="Round" Stretch="UniformToFill" 
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[2] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[4], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -270,11 +280,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3" 
                              StrokeDashCap="Round" Stretch="UniformToFill" 
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[2] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[3], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -313,7 +324,8 @@
                              Height="20" Width="20"
                              Fill="LightGreen" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
-                             StrokeStartLineCap="Round" StrokeThickness="4">
+                             StrokeStartLineCap="Round" StrokeThickness="4"
+                             Opacity="{Binding Card1Activity[3] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -325,16 +337,18 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch3 I: 25.7" 
                            FontFamily="Cascadia Mono" FontSize="10" 
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card1Activity[3] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[3] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[8], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -349,11 +363,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[3] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[7], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -368,11 +383,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[3] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[6], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -411,7 +427,8 @@
                              Height="20" Width="20"
                              Fill="LightGreen" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
-                             StrokeStartLineCap="Round" StrokeThickness="4">
+                             StrokeStartLineCap="Round" StrokeThickness="4"
+                             Opacity="{Binding Card1Activity[4] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -423,16 +440,18 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch4 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card1Activity[4] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[4] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[11], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -447,11 +466,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[4] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[10], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -466,11 +486,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[4] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[9], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -510,7 +531,8 @@
                              Fill="LightGreen" 
                              StrokeDashCap="Round" 
                              StrokeEndLineCap="Round" 
-                             StrokeStartLineCap="Round" StrokeThickness="4">
+                             StrokeStartLineCap="Round" StrokeThickness="4"
+                             Opacity="{Binding Card1Activity[5] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -527,11 +549,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[5] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[14], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -546,11 +569,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[5] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[13], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -565,11 +589,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[5] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[12], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -625,11 +650,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[6] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[17], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -644,11 +670,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[6] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[16], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -663,11 +690,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[6] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[15], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -723,11 +751,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[7] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[20], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -742,11 +771,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[7] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[19], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -761,11 +791,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[7] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[18], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -821,11 +852,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[8] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[23], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -840,11 +872,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[8] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[22], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -859,11 +892,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card1Activity[8] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card1ChannelErrorStatus[21], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -917,6 +951,9 @@
                              Fill="LightGreen" StrokeDashCap="Round" 
                              StrokeEndLineCap="Round" StrokeStartLineCap="Round" 
                              StrokeLineJoin="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -933,11 +970,12 @@
                              Height="20" Width="20"
                              StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill" 
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[1] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[2], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -953,11 +991,12 @@
                              Height="20" Width="20"
                              StrokeThickness="3" StrokeDashCap="Round"
                              Stretch="UniformToFill" StrokeEndLineCap="Round"
-                             StrokeStartLineCap="Round">
+                             StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[1] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[1], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -972,11 +1011,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[1] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[0], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1031,11 +1071,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[2] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[5], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1050,11 +1091,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[2] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[4], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1069,11 +1111,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[2] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[3], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1129,11 +1172,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[3] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[8], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1148,11 +1192,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[3] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[7], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1167,11 +1212,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[3] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[6], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1228,11 +1274,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[4] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[11], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1247,11 +1294,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[4] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[10], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1266,11 +1314,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[4] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[9], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1327,11 +1376,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[5] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[14], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1346,11 +1396,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[5] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[13], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1365,11 +1416,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[5] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[12], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1426,11 +1478,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[6] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[17], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1445,11 +1498,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[6] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[16], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1464,11 +1518,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[6] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[15], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1525,11 +1580,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[7] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[20], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1544,11 +1600,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[7] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[19], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1563,11 +1620,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[7] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[18], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1624,11 +1682,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[8] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[23], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1643,11 +1702,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[8] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[22], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1662,11 +1722,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card2Activity[8] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card2ChannelErrorStatus[21], UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1737,7 +1798,8 @@
                              StrokeThickness="3" 
                              StrokeDashCap="Round" 
                              Stretch="UniformToFill" StrokeEndLineCap="Round" 
-                             StrokeStartLineCap="Round">
+                             StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[1] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -1757,7 +1819,8 @@
                              Height="20" Width="20" 
                              StrokeThickness="3" StrokeDashCap="Round" 
                              Stretch="UniformToFill" StrokeEndLineCap="Round" 
-                             StrokeStartLineCap="Round">
+                             StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[1] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -1776,7 +1839,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3" 
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[1] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -1836,7 +1900,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3" 
                              StrokeDashCap="Round" Stretch="UniformToFill" 
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[2] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -1855,7 +1920,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3" 
                              StrokeDashCap="Round" Stretch="UniformToFill" 
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[2] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -1874,7 +1940,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3" 
                              StrokeDashCap="Round" Stretch="UniformToFill" 
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[2] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -1935,7 +2002,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[3] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -1954,7 +2022,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[3] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -1973,7 +2042,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[3] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -2034,7 +2104,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[4] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -2053,7 +2124,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[4] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -2072,7 +2144,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[4] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -2129,7 +2202,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch5 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card3Activity[5] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -2153,7 +2227,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[5] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -2172,7 +2247,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[5] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -2233,7 +2309,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[6] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -2252,7 +2329,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[6] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -2271,7 +2349,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[6] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -2332,7 +2411,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[7] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -2351,7 +2431,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[7] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -2370,7 +2451,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[7] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -2431,7 +2513,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[8] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -2450,7 +2533,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="2"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[8] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -2469,7 +2553,8 @@
                     <Ellipse Grid.Row="2" Grid.Column="3"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[8] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -2487,6 +2572,6 @@
                 </Grid>
             </Grid>
         </Grid>
-        
+
     </Grid>
 </Window>

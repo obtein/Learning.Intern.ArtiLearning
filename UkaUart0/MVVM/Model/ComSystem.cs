@@ -15,11 +15,6 @@ namespace UkaUart0.MVVM.Model
 {
     class ComSystem : INotifyPropertyChanged
     {
-        public int CardIndexUpdated { get; set; }
-        public int ChannelIndexUpdated { get; set; }
-
-        
-
         public SerialCommunication SerialCommunicationModel { get; set; }
         public EthernetCommunication EthernetCommunicationModel { get; set; }
         public DataHandler DataHandlerModel { get; set; }
@@ -38,7 +33,7 @@ namespace UkaUart0.MVVM.Model
                                                                    ctorBaudRate: CommunicationConstants.BaudRateList [11],
                                                                    ctorParity: CommunicationConstants.ParityList [0],
                                                                    ctorDataBits: 8,
-                                                                   ctorStopBits: CommunicationConstants.StopBitList [0],
+                                                                   ctorStopBits: CommunicationConstants.StopBitList [1],
                                                                    ctorHandshake: CommunicationConstants.HandShakeList [0],
                                                                    ctorReadTimeout: -1,
                                                                    ctorWriteTimeout: -1 );
@@ -86,7 +81,7 @@ namespace UkaUart0.MVVM.Model
                 {
                     card.ChannelCount = card3ChannelCount;
                 }
-                CardList.Add( card );
+                //CardList.Add( card );
             }
             //PopulateCards();
         }
@@ -105,13 +100,20 @@ namespace UkaUart0.MVVM.Model
 
         private void SerialCommunicationModel_PropertyChanged ( object? sender, PropertyChangedEventArgs e )
         {
-            // TODO:  Datahandler datayı işleyecek
+            Queue<byte> temp = new Queue<byte>();
+            temp = SerialCommunicationModel.CurrentDataReceived;
+            int dataLength = temp.Count;
+            byte [] dataToBeChecked = new byte [dataLength];
+            for (int i = 0; i < dataLength; i++ )
+            {
+                dataToBeChecked [i] = temp.Dequeue();
+            }
+            DataHandlerModel.ReadData ( dataToBeChecked );
         }
 
         private void DataHandlerModel_AnswerReady ( object? sender, PropertyChangedEventArgs e )
         {
             // TODO : Gelen cevaba göre aksiyon almasını sağla
-            SerialCommunicationModel.SendCardErrorInspection();
         }
 
         private void DataHandlerModel_PropertyChanged ( object? sender, PropertyChangedEventArgs e )

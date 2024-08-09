@@ -7,12 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using UkaUart0.MVVM.Model;
+using UkaUart0.MVVM.Model.DataModels.UI;
 
 namespace UkaUart0.MVVM.ViewModel
 {
     class MainViewModel : INotifyPropertyChanged
     {
+
+
         /// <summary>
         /// For updating ui
         /// 0 for cards and 1- channel 1, 2- channel 2...
@@ -69,6 +73,280 @@ namespace UkaUart0.MVVM.ViewModel
             }
         }
 
+        /// <summary>
+        /// activity collections hold isopen status for cards and channels 0=card 1= ch1...
+        /// </summary>
+        private ObservableCollection<double> card1Activity;
+        public ObservableCollection<double> Card1Activity
+        {
+            get
+            {
+                return card1Activity;
+            }
+            set
+            {
+                if ( card1Activity != value )
+                {
+                    card1Activity = value;
+                    OnPropertyChanged( nameof( Card1Activity ) );
+                }
+            }
+        }
+        // card 2
+        private ObservableCollection<double> card2Activity;
+        public ObservableCollection<double> Card2Activity
+        {
+            get
+            {
+                return card2Activity;
+            }
+            set
+            {
+                if ( card2Activity != value )
+                {
+                    card2Activity = value;
+                    OnPropertyChanged( nameof( Card2Activity ) );
+                }
+            }
+        }
+        // card3
+        private ObservableCollection<double> card3Activity;
+        public ObservableCollection<double> Card3Activity
+        {
+            get
+            {
+                return card3Activity;
+            }
+            set
+            {
+                if ( card3Activity != value )
+                {
+                    card3Activity = value;
+                    OnPropertyChanged( nameof( Card3Activity ) );
+                }
+            }
+        }
+
+        /// <summary>
+        /// Error status collections keep channel error leds conditions Total 24 element for each
+        /// 
+        /// Index 
+        /// 0,1,2    => ch1 =>  0(shorCircuit),  1(OverCurrent),  2(VoltageError)
+        /// 3,4,5    => ch2 =>  3(shorCircuit),  4(OverCurrent),  5(VoltageError)
+        /// 6,7,8    => ch3 =>  6(shorCircuit),  7(OverCurrent),  8(VoltageError)
+        /// 9,10,11  => ch4 =>  9(shorCircuit), 10(OverCurrent), 11(VoltageError)
+        /// 12,13,14 => ch5 => 12(shorCircuit), 13(OverCurrent), 14(VoltageError)
+        /// 15,16,17 => ch6 => 15(shorCircuit), 16(OverCurrent), 17(VoltageError)
+        /// 18,19,20 => ch7 => 18(shorCircuit), 19(OverCurrent), 20(VoltageError)
+        /// 21,22,23 => ch8 => 21(shorCircuit), 22(OverCurrent), 23(VoltageError)
+        /// </summary>
+        private ObservableCollection<Color> card1ChannelErrorStatus;
+        public ObservableCollection<Color> Card1ChannelErrorStatus
+        {
+            get
+            {
+                return card1ChannelErrorStatus;
+            }
+            set
+            {
+                if ( card1ChannelErrorStatus != value)
+                {
+                    card1ChannelErrorStatus = value;
+                    OnPropertyChanged(nameof(Card1ChannelErrorStatus));
+                }
+            }
+        }
+
+        private ObservableCollection<Color> card2ChannelErrorStatus;
+        public ObservableCollection<Color> Card2ChannelErrorStatus
+        {
+            get
+            {
+                return card2ChannelErrorStatus;
+            }
+            set
+            {
+                if ( card2ChannelErrorStatus != value )
+                {
+                    card2ChannelErrorStatus = value;
+                    OnPropertyChanged( nameof( Card2ChannelErrorStatus ) );
+                }
+            }
+        }
+
+        private ObservableCollection<Color> card3ChannelErrorStatus;
+        public ObservableCollection<Color> Card3ChannelErrorStatus
+        {
+            get
+            {
+                return card3ChannelErrorStatus;
+            }
+            set
+            {
+                if ( card3ChannelErrorStatus != value )
+                {
+                    card3ChannelErrorStatus = value;
+                    OnPropertyChanged( nameof( Card3ChannelErrorStatus ) );
+                }
+            }
+        }
+
+
+        private ObservableCollection<Brush> card1CommunicationStatus;
+        public ObservableCollection<Brush> Card1CommunicationStatus
+        {
+            get
+            {
+                return card1CommunicationStatus;
+            }
+            set
+            {
+                if ( card1CommunicationStatus != value)
+                {
+                    card1CommunicationStatus = value;
+                    OnPropertyChanged( nameof( Card1CommunicationStatus ) );
+                }
+            }
+        }
+
+        private ObservableCollection<Brush> card2CommunicationStatus;
+        public ObservableCollection<Brush> Card2CommunicationStatus
+        {
+            get
+            {
+                return card2CommunicationStatus;
+            }
+            set
+            {
+                if ( card2CommunicationStatus != value )
+                {
+                    card2CommunicationStatus = value;
+                    OnPropertyChanged( nameof( Card2CommunicationStatus ) );
+                }
+            }
+        }
+
+        private ObservableCollection<Brush> card3CommunicationStatus;
+        public ObservableCollection<Brush> Card3CommunicationStatus
+        {
+            get
+            {
+                return card3CommunicationStatus;
+            }
+            set
+            {
+                if ( card3CommunicationStatus != value )
+                {
+                    card1CommunicationStatus = value;
+                    OnPropertyChanged( nameof( Card1CommunicationStatus ) );
+                }
+            }
+        }
+
+        private double card1Voltage;
+        public double Card1Voltage
+        {
+            get
+            {
+                return card1Voltage;
+            }
+            set
+            {
+                if ( card1Voltage != value )
+                {
+                    card1Voltage = value;
+                    OnPropertyChanged( nameof( Card1Voltage ) );
+                }
+            }
+        }
+
+        private double card2Voltage;
+        public double Card2Voltage
+        {
+            get
+            {
+                return card2Voltage;
+            }
+            set
+            {
+                if ( card2Voltage != value )
+                {
+                    card2Voltage = value;
+                    OnPropertyChanged( nameof( Card2Voltage ) );
+                }
+            }
+        }
+
+        private double card3Voltage;
+        public double Card3Voltage
+        {
+            get
+            {
+                return card3Voltage;
+            }
+            set
+            {
+                if ( card3Voltage != value )
+                {
+                    card3Voltage = value;
+                    OnPropertyChanged( nameof( Card3Voltage ) );
+                }
+            }
+        }
+
+        private double card1Temp;
+        public double Card1Temp
+        {
+            get
+            {
+                return card1Temp;
+            }
+            set
+            {
+                if ( card1Temp != value)
+                {
+                    card1Temp = value;
+                    OnPropertyChanged(nameof(Card1Temp));
+                }
+            }
+        }
+
+        private double card2Temp;
+        public double Card2Temp
+        {
+            get
+            {
+                return card2Temp;
+            }
+            set
+            {
+                if ( card2Temp != value )
+                {
+                    card2Temp = value;
+                    OnPropertyChanged( nameof( Card2Temp ) );
+                }
+            }
+        }
+
+        private double card3Temp;
+        public double Card3Temp
+        {
+            get
+            {
+                return card3Temp;
+            }
+            set
+            {
+                if ( card3Temp != value )
+                {
+                    card3Temp = value;
+                    OnPropertyChanged( nameof( Card3Temp ) );
+                }
+            }
+        }
+
+
+
         ComSystem ComSystem { get; set; }
 
         public MainViewModel() 
@@ -88,6 +366,14 @@ namespace UkaUart0.MVVM.ViewModel
             Card1Visibility = new ObservableCollection<Visibility>();
             Card2Visibility = new ObservableCollection<Visibility>();
             Card3Visibility = new ObservableCollection<Visibility>();
+
+            Card1Activity = new ObservableCollection<double>();
+            Card2Activity = new ObservableCollection<double>();
+            Card3Activity = new ObservableCollection<double>();
+
+            Card1ChannelErrorStatus = new ObservableCollection<Color>();
+            Card2ChannelErrorStatus = new ObservableCollection<Color>();
+            Card3ChannelErrorStatus = new ObservableCollection<Color>();
         }
 
         /// <summary>
@@ -96,11 +382,32 @@ namespace UkaUart0.MVVM.ViewModel
         private void InitUI ()
         {
             for ( int i = 0; i < 9; i++ )
-                card1Visibility.Add(Visibility.Hidden);
+            {
+                card1Visibility.Add( Visibility.Visible );
+                Card1Activity.Add(BrushesToBeUsed.OPACITY_PASSIVE);
+
+                Card1ChannelErrorStatus.Add(BrushesToBeUsed.NOCOMMUNICATION);
+                Card1ChannelErrorStatus.Add(BrushesToBeUsed.NOCOMMUNICATION);
+                Card1ChannelErrorStatus.Add(BrushesToBeUsed.NOCOMMUNICATION);
+            }
             for ( int i = 0; i < 9; i++ )
-                card2Visibility.Add( Visibility.Hidden );
+            {
+                card2Visibility.Add( Visibility.Visible );
+                Card2Activity.Add( BrushesToBeUsed.OPACITY_PASSIVE );
+
+                Card2ChannelErrorStatus.Add( BrushesToBeUsed.NOCOMMUNICATION );
+                Card2ChannelErrorStatus.Add( BrushesToBeUsed.NOCOMMUNICATION );
+                Card2ChannelErrorStatus.Add( BrushesToBeUsed.NOCOMMUNICATION );
+            }
             for ( int i = 0; i < 9; i++ )
-                card3Visibility.Add( Visibility.Hidden );
+            {
+                card3Visibility.Add( Visibility.Visible );
+                Card3Activity.Add( BrushesToBeUsed.OPACITY_PASSIVE );
+
+                Card3ChannelErrorStatus.Add( BrushesToBeUsed.NOCOMMUNICATION );
+                Card3ChannelErrorStatus.Add( BrushesToBeUsed.NOCOMMUNICATION );
+                Card3ChannelErrorStatus.Add( BrushesToBeUsed.NOCOMMUNICATION );
+            }
         }
 
         /*
@@ -114,6 +421,15 @@ namespace UkaUart0.MVVM.ViewModel
          */
 
         #region UpdateUIFromModelNotifications
+
+        private string FindPropertyName (string input)
+        {
+            string result = "unknown";
+            int tempIndex = input.IndexOf(" ");
+            result = input.Substring( 0, tempIndex );
+            return result;
+        }
+
         /// <summary>
         /// To update data properly splits propertychanged string
         /// </summary>
@@ -137,8 +453,9 @@ namespace UkaUart0.MVVM.ViewModel
         /// <param name="e"></param>
         private void ComSystem_PropertyChanged ( object? sender, PropertyChangedEventArgs e )
         {
-            int [] whatToDo = FindChannelDetails( e.PropertyName );
-            UpdateDetails( whatToDo [0], whatToDo [1] );
+            int [] indexes = FindChannelDetails( e.PropertyName );
+            string whatToDo = FindPropertyName( e.PropertyName );
+            UpdateDetails( whatToDo, indexes [0], indexes [1] );
         }
 
         /// <summary>
@@ -146,99 +463,175 @@ namespace UkaUart0.MVVM.ViewModel
         /// </summary>
         /// <param name="cardIndex"></param>
         /// <param name="chIndex"></param>
-        private void UpdateDetails ( int cardIndex, int chIndex )
+        private void UpdateDetails ( string whatToDo, int cardIndex, int chIndex )
         {
-            if ( chIndex == 9 ) // Means we only need to change card visibility
+            switch (whatToDo)
             {
-                if ( cardIndex == 1 ) // Card 1
-                {
-                    switch ( ComSystem.CardList [0].IsOpen )
+                case "IsOpen":
+                    if ( chIndex == 9 ) // Means we only need to change card visibility
                     {
-                        case true:
-                            Card1Visibility [0] = Visibility.Visible;
-                            break;
-                        case false:
-                            Card1Visibility [0] = Visibility.Hidden;
-                            break;
-                        default:
-                            break;
+                        if ( cardIndex == 1 ) // Card 1
+                        {
+                            switch ( ComSystem.DataHandlerModel.CardList [0].IsOpen )
+                            {
+                                case true:
+                                    Card1Activity [0] = BrushesToBeUsed.OPACITY_ACTIVE;
+                                    break;
+                                case false:
+                                    Card1Activity [0] = BrushesToBeUsed.OPACITY_PASSIVE;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        else if ( cardIndex == 2 ) // Card 2
+                        {
+                            switch ( ComSystem.DataHandlerModel.CardList [1].IsOpen )
+                            {
+                                case true:
+                                    Card2Activity [0] = BrushesToBeUsed.OPACITY_ACTIVE;
+                                    break;
+                                case false:
+                                    Card2Activity [0] = BrushesToBeUsed.OPACITY_PASSIVE;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        else if ( cardIndex == 3 ) // Card 3
+                        {
+                            switch ( ComSystem.DataHandlerModel.CardList [2].IsOpen )
+                            {
+                                case true:
+                                    Card3Activity [0] = BrushesToBeUsed.OPACITY_ACTIVE;
+                                    break;
+                                case false:
+                                    Card3Activity [0] = BrushesToBeUsed.OPACITY_PASSIVE;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
                     }
-                }
-                else if ( cardIndex == 2 ) // Card 2
-                {
-                    switch ( ComSystem.CardList [1].IsOpen )
+                    else // Means channel property changed
                     {
-                        case true:
-                            Card2Visibility [0] = Visibility.Visible;
-                            break;
-                        case false:
-                            Card2Visibility [0] = Visibility.Hidden;
-                            break;
-                        default:
-                            break;
+                        if ( cardIndex == 1 ) // Card 1
+                        {
+                            switch ( ComSystem.DataHandlerModel.CardList [0].ChannelList [chIndex - 1].IsOpen )
+                            {
+                                case true:
+                                    Card1Activity [chIndex] = BrushesToBeUsed.OPACITY_ACTIVE;
+                                    break;
+                                case false:
+                                    Card1Activity [chIndex] = BrushesToBeUsed.OPACITY_PASSIVE;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        else if ( cardIndex == 2 ) // Card 2
+                        {
+                            switch ( ComSystem.DataHandlerModel.CardList [1].ChannelList [chIndex - 1].IsOpen )
+                            {
+                                case true:
+                                    Card2Activity [chIndex] = BrushesToBeUsed.OPACITY_ACTIVE;
+                                    break;
+                                case false:
+                                    Card2Activity [chIndex] = BrushesToBeUsed.OPACITY_PASSIVE;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        else if ( cardIndex == 3 ) // Card 3
+                        {
+                            switch ( ComSystem.DataHandlerModel.CardList [2].ChannelList [chIndex - 1].IsOpen )
+                            {
+                                case true:
+                                    Card3Activity [chIndex] = BrushesToBeUsed.OPACITY_ACTIVE;
+                                    break;
+                                case false:
+                                    Card3Activity [chIndex] = BrushesToBeUsed.OPACITY_PASSIVE;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
                     }
-                }
-                else if ( cardIndex == 3 ) // Card 3
-                {
-                    switch ( ComSystem.CardList [2].IsOpen )
+                    break;
+                case "CardVoltage":
+                    if ( cardIndex == 1 )
                     {
-                        case true:
-                            Card3Visibility [0] = Visibility.Visible;
-                            break;
-                        case false:
-                            Card3Visibility [0] = Visibility.Hidden;
-                            break;
-                        default:
-                            break;
+                        Card1Voltage = ComSystem.DataHandlerModel.CardList [0].CardVoltage;
                     }
-                }
-            }
-            else // Means channel property changed
-            {
-                if ( cardIndex == 1 ) // Card 1
-                {
-                    switch ( ComSystem.CardList [0].ChannelList [chIndex - 1].IsOpen )
+                    else if ( cardIndex == 2 )
                     {
-                        case true:
-                            Card1Visibility [chIndex] = Visibility.Visible;
-                            break;
-                        case false:
-                            Card1Visibility [chIndex] = Visibility.Hidden;
-                            break;
-                        default:
-                            break;
+                        Card2Voltage = ComSystem.DataHandlerModel.CardList [1].CardVoltage;
                     }
-                }
-                else if ( cardIndex == 2 ) // Card 2
-                {
-                    switch ( ComSystem.CardList [1].ChannelList [chIndex - 1].IsOpen )
+                    else if ( cardIndex == 3 )
                     {
-                        case true:
-                            Card2Visibility [chIndex] = Visibility.Visible;
-                            break;
-                        case false:
-                            Card2Visibility [chIndex] = Visibility.Hidden;
-                            break;
-                        default:
-                            break;
+                        Card3Voltage = ComSystem.DataHandlerModel.CardList [2].CardVoltage;
                     }
-                }
-                else if ( cardIndex == 3 ) // Card 3
-                {
-                    switch ( ComSystem.CardList [2].ChannelList [chIndex - 1].IsOpen )
+                    break;
+                case "CardTemp":
+                    if ( cardIndex == 1 )
                     {
-                        case true:
-                            Card3Visibility [chIndex] = Visibility.Visible;
-                            break;
-                        case false:
-                            Card3Visibility [chIndex] = Visibility.Hidden;
-                            break;
-                        default:
-                            break;
+                        Card1Temp = ComSystem.DataHandlerModel.CardList [0].CardTemp;
                     }
-                }
+                    else if ( cardIndex == 2 )
+                    {
+                        Card2Temp = ComSystem.DataHandlerModel.CardList [1].CardTemp;
+                    }
+                    else if ( cardIndex == 3 )
+                    {
+                        Card3Temp = ComSystem.DataHandlerModel.CardList [2].CardTemp;
+                    }
+                    break;
+                case "ErrorCode":
+                    HandleErrorCode(cardIndex, chIndex);
+                    break;
+                default:
+                    break;
             }
         }
+
+        private void HandleErrorCode (int cardIndex, int chIndex)
+        {
+            var errorCode = 0;
+            byte shortCircuit = 0b00000001; // 1
+            byte overCurrent = 0b00000010; // 2
+            byte voltageError = 0b00000100; // 4
+            /* 1- shortCircuit 
+             * 2- overCurrent 
+             * 3- shortCircuit + overCurrent
+             * 4- voltageError
+             * 5- shortCircuit + voltageError 
+             * 6- overCurrent + voltageError
+             * 7- shortCircuit + overCurrent + voltageError
+             * 128- No communication 
+             */
+            errorCode = ComSystem.DataHandlerModel.CardList [cardIndex - 1].ChannelList [chIndex - 1].ErrorCode;
+            Color [] temp = BrushesToBeUsed.ERROR_STATUS [errorCode];
+            if ( cardIndex == 1 )
+            {
+                Card1ChannelErrorStatus [(chIndex*3) -3] = temp [0];
+                Card1ChannelErrorStatus [(chIndex*3) -2] = temp [1];
+                Card1ChannelErrorStatus [(chIndex*3) -1] = temp [2];
+            }
+            else if ( cardIndex == 2 )
+            {
+                Card2ChannelErrorStatus [( chIndex * 3 ) - 3] = temp [0];
+                Card2ChannelErrorStatus [( chIndex * 3 ) - 2] = temp [1];
+                Card2ChannelErrorStatus [( chIndex * 3 ) - 1] = temp [2];
+            }
+            else if ( cardIndex == 3 )
+            {
+                Card3ChannelErrorStatus [( chIndex * 3 ) - 3] = temp [0];
+                Card3ChannelErrorStatus [( chIndex * 3 ) - 2] = temp [1];
+                Card3ChannelErrorStatus [( chIndex * 3 ) - 1] = temp [2];
+            }
+        }
+
         #endregion
 
         public event PropertyChangedEventHandler? PropertyChanged;
