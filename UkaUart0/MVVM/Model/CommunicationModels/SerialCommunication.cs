@@ -58,9 +58,10 @@ namespace UkaUart0.MVVM.Model.CommunicationModels
 
         private void DataReceivedHandler ( object sender, SerialDataReceivedEventArgs e )
         {
+            Trace.WriteLine("SerialCommunication : DataReceivedHandler ");
             readThread = new Thread( Read );
             readThread.Start();
-            readThread.Join();
+            //readThread.Join();
         }
 
         private void Read ()
@@ -73,11 +74,15 @@ namespace UkaUart0.MVVM.Model.CommunicationModels
                 try
                 {
                     byte message = ((byte)readStream.ReadByte());
-                    data.Enqueue( message );
-                    if ( message == (byte)EnumCommunicationParameters.Stx )
+                    if(message != (byte)EnumCommunicationParameters.Stx)
+                        data.Enqueue( message );
+                    if ( message == (byte)EnumCommunicationParameters.Etx )
                         flag = false;
                 }
-                catch ( TimeoutException ) { }
+                catch ( TimeoutException ) 
+                {
+                    Console.WriteLine( "SerialCommunication : DataReceivedHandler *********TIMEOUT" );
+                }
             }
             CurrentDataReceived.Clear();
             CurrentDataReceived = data;

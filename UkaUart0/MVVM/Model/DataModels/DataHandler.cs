@@ -87,38 +87,39 @@ namespace UkaUart0.MVVM.Model.DataModels
         /// <param name="dataToRead"></param>
         public void ReadData ( byte [] dataToRead)
         {
+            Trace.WriteLine($"DataHandler ReadData : dataToRead  = {dataToRead [1].ToString("X2")}");
             // 0
-            if ( dataToRead [2] == (byte)0xC9 )
+            if ( dataToRead [1] == (byte)0xC9 )
             {
                 ChannelInspectionReceived( dataToRead );
             }
             //1
-            else if ( dataToRead [2] == (byte)0xCA )
+            else if ( dataToRead [1] == (byte)0xCA )
             {
                 AnalogInspectionReceived( dataToRead );
             }
             //2
-            else if ( dataToRead [2] == (byte)0xCB )
+            else if ( dataToRead [1] == (byte)0xCB )
             {
                 CardErrorInspectionReceived( dataToRead );
             }
             //3
-            else if ( dataToRead [2] == (byte)0xCD )
+            else if ( dataToRead [1] == (byte)0xCD )
             {
                 CardTemperatureInspectionReceived( dataToRead );
             }
             //4
-            else if ( dataToRead [2] == (byte)0xCE )
+            else if ( dataToRead [1] == (byte)0xCE )
             {
                 Card1OpenOrCloseReceived( dataToRead );
             }
             //5
-            else if ( dataToRead [2] == (byte)0xCF )
+            else if ( dataToRead [1] == (byte)0xCF )
             {
                 Card2OpenOrCloseReceived( dataToRead );
             }
             //6
-            else if ( dataToRead [2] == (byte)0xD0 )
+            else if ( dataToRead [1] == (byte)0xD0 )
             {
                 Card3OpenOrCloseReceived( dataToRead );
             }

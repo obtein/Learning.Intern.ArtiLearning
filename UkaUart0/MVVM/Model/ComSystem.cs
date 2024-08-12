@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO.Ports;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -25,19 +26,27 @@ namespace UkaUart0.MVVM.Model
         /// <param name="selectedCommunication"></param>
         ///             0 : Serial
         ///             1 : Ethernet
-        public ComSystem (int selectedCommunication)
+        public ComSystem (int selectedCommunication, string comSystemCtorPortName,
+                          int comSystemCtorBaudRate, Parity comSystemCtorParity,
+                          int comSystemCtorDataBits, StopBits comSystemCtorStopBits,
+                          Handshake comSystemCtorHandShake,
+                          int comSystemCtorReadTimeOut,
+                          int comSystemCtorWriteTimeOut
+                          )
         {
             if ( selectedCommunication == 0 )
             {
-                SerialCommunicationModel = new SerialCommunication( ctorPortName: "COM8",
-                                                                   ctorBaudRate: CommunicationConstants.BaudRateList [11],
-                                                                   ctorParity: CommunicationConstants.ParityList [0],
-                                                                   ctorDataBits: 8,
-                                                                   ctorStopBits: CommunicationConstants.StopBitList [1],
-                                                                   ctorHandshake: CommunicationConstants.HandShakeList [0],
-                                                                   ctorReadTimeout: -1,
-                                                                   ctorWriteTimeout: -1 );
+                SerialCommunicationModel = new SerialCommunication( ctorPortName: comSystemCtorPortName,
+                                                                   ctorBaudRate: comSystemCtorBaudRate,
+                                                                   ctorParity: comSystemCtorParity,
+                                                                   ctorDataBits: comSystemCtorDataBits,
+                                                                   ctorStopBits: comSystemCtorStopBits,
+                                                                   ctorHandshake: comSystemCtorHandShake,
+                                                                   ctorReadTimeout: comSystemCtorReadTimeOut,
+                                                                   ctorWriteTimeout: comSystemCtorWriteTimeOut );
                 SerialCommunicationModel.PropertyChanged += SerialCommunicationModel_PropertyChanged;
+                SerialCommunicationModel.StartCommunication();
+                SerialCommunicationModel.SendChannelInspection();// Starts the communication
             }
             if ( selectedCommunication == 1 )
             {
@@ -119,6 +128,7 @@ namespace UkaUart0.MVVM.Model
         private void DataHandlerModel_PropertyChanged ( object? sender, PropertyChangedEventArgs e )
         {
             // TODO: burası direkt ui güncelleyecek
+            Trace.WriteLine($"ComSystem DataHandler_PropertyChanged : {e.PropertyName}");
             OnPropertyChanged( e.PropertyName );
         }
 

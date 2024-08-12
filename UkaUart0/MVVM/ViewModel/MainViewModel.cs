@@ -3,18 +3,152 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
+using CommunityToolkit.Mvvm.Input;
 using UkaUart0.MVVM.Model;
+using UkaUart0.MVVM.Model.CommunicationModels;
 using UkaUart0.MVVM.Model.DataModels.UI;
 
 namespace UkaUart0.MVVM.ViewModel
 {
     class MainViewModel : INotifyPropertyChanged
     {
+
+        /// <summary>
+        /// 0 - Serial
+        /// 1 - Ethernet
+        /// 2 - Start
+        /// 3 - Stop
+        /// 4 - Logs
+        /// 5 - Settings
+        /// </summary>
+        private ObservableCollection<bool> buttonActivity;
+        public ObservableCollection<bool>  ButtonActivity
+        {
+            get
+            {
+                return buttonActivity;
+            }
+            set
+            {
+                if ( buttonActivity != value )
+                {
+                    buttonActivity = value;
+                    OnPropertyChanged(nameof( buttonActivity));
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// 0 for serial
+        /// 1 for ethernet
+        /// </summary>
+        private int selectedCommunication;
+        public int SelectedCommunication
+        {
+            get
+            {
+                return selectedCommunication;
+            }
+            set
+            {
+                if ( selectedCommunication != value )
+                {
+                    selectedCommunication = value;
+                    OnPropertyChanged(nameof(SelectedCommunication));
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Serialport to be opened thruough user selections will have these variables
+        /// 0 = CommunicationType (int) 
+        /// 1 = portName (string)
+        /// 2 = BaudRate          | 5 = HandShake       (int)
+        /// 3 = Parity            | 6 = ReadTimeOut     (int)
+        /// 4 = StopBit           | 7 = WriteTimeOut    (int)
+        /// </summary>
+        private ObservableCollection<object> serialPortToBeOpenedDetails;
+        public ObservableCollection<object> SerialPortToBeOpenedDetails
+        {
+            get => serialPortToBeOpenedDetails;
+            set
+            {
+                if ( serialPortToBeOpenedDetails != value )
+                {
+                    serialPortToBeOpenedDetails = value;
+                    OnPropertyChanged(nameof(serialPortToBeOpenedDetails));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Combo box values for Serial Communication
+        /// </summary>
+        private string [] comPortsToBeShown;
+        public string [] ComPortsToBeShown
+        {
+            get => comPortsToBeShown;
+            set
+            {
+                if ( comPortsToBeShown != value )
+                {
+                    comPortsToBeShown = value;
+                    OnPropertyChanged(nameof(ComPortsToBeShown));
+                }
+            }
+        }
+        private int [] baudListToBeShown = CommunicationConstants.BaudRateList;
+        public int [] BaudListToBeShown
+        {
+            get => baudListToBeShown;
+        }
+        private Parity [] parityListToBeShown = CommunicationConstants.ParityList;
+        public Parity [] ParityListToBeShown
+        {
+            get => parityListToBeShown;
+        }
+        private StopBits [] stopBitListToBeShown = CommunicationConstants.StopBitList;
+        public StopBits [] StopBitListToBeShown
+        {
+            get => stopBitListToBeShown;
+        }
+        private Handshake [] handShakeListToBeShown = CommunicationConstants.HandShakeList;
+        public Handshake [] HandShakeListToBeShown
+        {
+            get => handShakeListToBeShown;
+        }
+
+
+        /// <summary>
+        /// 0 - Serial Panel
+        /// 1 - Ethernet Panel
+        /// 2 - Card Headers
+        /// </summary>
+        private ObservableCollection<Visibility> uiVisibilityTracker;
+        public ObservableCollection<Visibility> UIVisibilityTracker
+        {
+            get
+            {
+                return uiVisibilityTracker;
+            }
+            set
+            {
+                if ( uiVisibilityTracker != value )
+                {
+                    uiVisibilityTracker = value;
+                    OnPropertyChanged(nameof(UIVisibilityTracker));
+                }
+            }
+        }
 
 
         /// <summary>
@@ -191,7 +325,9 @@ namespace UkaUart0.MVVM.ViewModel
             }
         }
 
-
+        /// <summary>
+        /// Hold card channels isopen property green for communication active, red for not communication
+        /// </summary>
         private ObservableCollection<Brush> card1CommunicationStatus;
         public ObservableCollection<Brush> Card1CommunicationStatus
         {
@@ -351,8 +487,11 @@ namespace UkaUart0.MVVM.ViewModel
 
         public MainViewModel() 
         {
-            ComSystem = new ComSystem(0);
-            ComSystem.PropertyChanged += new PropertyChangedEventHandler (ComSystem_PropertyChanged);
+
+            // Relay Commands for UI update
+            SerialComSelectedCommand = new RelayCommand(SerialComSelected);
+            EthernetComSelectedCommand = new RelayCommand(EthernetComSelected);
+            CommunicationStartedCommand = new RelayCommand(CommunicationStarted);
 
             InitVariables();
             InitUI();
@@ -374,6 +513,10 @@ namespace UkaUart0.MVVM.ViewModel
             Card1ChannelErrorStatus = new ObservableCollection<Color>();
             Card2ChannelErrorStatus = new ObservableCollection<Color>();
             Card3ChannelErrorStatus = new ObservableCollection<Color>();
+
+            UIVisibilityTracker = new ObservableCollection<Visibility>();
+
+            ButtonActivity = new ObservableCollection<bool>();
         }
 
         /// <summary>
@@ -408,17 +551,101 @@ namespace UkaUart0.MVVM.ViewModel
                 Card3ChannelErrorStatus.Add( BrushesToBeUsed.NOCOMMUNICATION );
                 Card3ChannelErrorStatus.Add( BrushesToBeUsed.NOCOMMUNICATION );
             }
+
+            UIVisibilityTracker.Add(Visibility.Hidden);
+            UIVisibilityTracker.Add(Visibility.Hidden);
+            UIVisibilityTracker.Add(Visibility.Hidden);
+
+            ButtonActivity.Add(true);
+            ButtonActivity.Add(true);
+            ButtonActivity.Add(false);
+            ButtonActivity.Add(false);
+            ButtonActivity.Add(false);
+            ButtonActivity.Add(false);
+
         }
 
-        /*
-         * To DO : 
-         * 
-            Console.WriteLine( "Available Ports:" );
-            foreach ( string s in SerialPort.GetPortNames() )
+
+        #region Commands
+        public ICommand SerialComSelectedCommand
+        {
+            get; set;
+        }
+        public ICommand EthernetComSelectedCommand
+        {
+            get; set;
+        }
+        public ICommand CommunicationStartedCommand
+        {
+            get; set;
+        }
+        private void SerialComSelected ()
+        {
+            ButtonActivity [0] = false;
+            ButtonActivity [1] = false;
+            ButtonActivity [2] = true;
+            SerialPortToBeOpenedDetails = new ObservableCollection<object>( new object [8] );
+            SerialPortToBeOpenedDetails [0] = "COM8";
+            SerialPortToBeOpenedDetails [1] = 115200;
+            SerialPortToBeOpenedDetails [2] = Parity.None;
+            SerialPortToBeOpenedDetails [3] = 8; // DataBits
+            SerialPortToBeOpenedDetails [4] = StopBits.One;
+            SerialPortToBeOpenedDetails [5] = Handshake.None;
+            SerialPortToBeOpenedDetails [6] = -1;// Read Timeout
+            SerialPortToBeOpenedDetails [7] = -1;// Write Timeout
+            ComPortsToBeShown = SerialPort.GetPortNames();
+            UpdateCardHeadersVisibility( false, 0 );
+        }
+        private void EthernetComSelected ()
+        {
+            ButtonActivity [0] = false;
+            ButtonActivity [1] = false;
+            ButtonActivity [2] = true;
+            UpdateCardHeadersVisibility( false, 1 );
+        }
+        private void CommunicationStarted ()
+        {
+            ButtonActivity [2] = false;
+            ButtonActivity [3] = true;
+            ButtonActivity [4] = true;
+            ButtonActivity [5] = true;
+            if ( SelectedCommunication == 0 )
             {
-                Console.WriteLine( "   {0}", s );
+                ComSystem = new ComSystem( 0, (string)SerialPortToBeOpenedDetails [0], (int)SerialPortToBeOpenedDetails [1],
+                                              (Parity)SerialPortToBeOpenedDetails [2], (int)SerialPortToBeOpenedDetails [3],
+                                              (StopBits)SerialPortToBeOpenedDetails [4], (Handshake)SerialPortToBeOpenedDetails [5],
+                                              (int)SerialPortToBeOpenedDetails [6], (int)SerialPortToBeOpenedDetails [7] );
+                ComSystem.PropertyChanged += new PropertyChangedEventHandler( ComSystem_PropertyChanged );
             }
-         */
+            else if ( SelectedCommunication == 1 )
+            {
+
+            }
+            UpdateCardHeadersVisibility( true );
+        }
+        private void UpdateCardHeadersVisibility ( bool isVisible, int selectedCom = -1 )
+        {
+            if ( isVisible )
+            {
+                UIVisibilityTracker [0] = Visibility.Hidden;
+                UIVisibilityTracker [1] = Visibility.Hidden;
+                UIVisibilityTracker [2] = Visibility.Visible;
+            }
+            else if ( selectedCom == 0 )
+            {
+                UIVisibilityTracker [0] = Visibility.Visible;
+                UIVisibilityTracker [1] = Visibility.Hidden;
+                UIVisibilityTracker [2] = Visibility.Hidden;
+            }
+            else if ( selectedCom == 1 )
+            {
+                UIVisibilityTracker [0] = Visibility.Hidden;
+                UIVisibilityTracker [1] = Visibility.Visible;
+                UIVisibilityTracker [2] = Visibility.Hidden;
+            }
+        }
+        #endregion
+
 
         #region UpdateUIFromModelNotifications
 
@@ -455,6 +682,7 @@ namespace UkaUart0.MVVM.ViewModel
         {
             int [] indexes = FindChannelDetails( e.PropertyName );
             string whatToDo = FindPropertyName( e.PropertyName );
+            Trace.WriteLine( $"MainViewModel : ComSystem_PropertyChanged : indexes:{indexes [0]},{indexes [1]} whatToDo:{whatToDo}" );
             UpdateDetails( whatToDo, indexes [0], indexes [1] );
         }
 
@@ -467,7 +695,7 @@ namespace UkaUart0.MVVM.ViewModel
         {
             switch (whatToDo)
             {
-                case "IsOpen":
+                case "ChannelCount":
                     if ( chIndex == 9 ) // Means we only need to change card visibility
                     {
                         if ( cardIndex == 1 ) // Card 1

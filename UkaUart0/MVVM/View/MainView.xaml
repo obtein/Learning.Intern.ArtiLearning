@@ -29,34 +29,52 @@
            Width="150">
             <Menu DockPanel.Dock="Top"
           Background="LightYellow">
-                <MenuItem Header="Serial">
-                    <MenuItem 
-                      Click ="Serial_Click"/>
+                <MenuItem Header="Serial" 
+                          Command="{Binding SerialComSelectedCommand}"
+                          >
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Ethernet">
-                    <MenuItem 
-                      Click ="Ethernet_Click"/>
+                <MenuItem Header="Ethernet"
+                          Command="{Binding EthernetComSelectedCommand}">
                 </MenuItem>
             </Menu>
-            <Button>Start</Button>
+            <Button Command="{Binding CommunicationStartedCommand}" IsEnabled="{Binding ButtonActivity[2], UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">Start</Button>
         </DockPanel>
         <!--Side Menu-->
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
-            <Button>Stop</Button>
+            <Button IsEnabled="{Binding ButtonActivity[3], UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">Stop</Button>
             <Canvas Height="250" Background="LightGoldenrodYellow"></Canvas>
-            <Button>Logs</Button>
+            <Button IsEnabled="{Binding ButtonActivity[4], UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">Logs</Button>
             <Image></Image>
-            <Button >Settings</Button>
+            <Button IsEnabled="{Binding ButtonActivity[5], UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">Settings</Button>
         </StackPanel>
-        <!--Communication details-->
+        <!--Serial Panel : Communication details-->
         <StackPanel 
             Grid.Row="0" 
             Grid.Column="1"
             Orientation="Horizontal"
             CanHorizontallyScroll="False"
             Height="25"
-            Background="LightYellow">
+            Background="LightYellow" Visibility="{Binding UIVisibilityTracker[0], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <Label Content="Port"/>
+            <ComboBox MinWidth="75" ItemsSource="{Binding ComPortsToBeShown, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedValue="{Binding SerialPortToBeOpenedDetails[0], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <Label Content="BaudRate"/>
+            <ComboBox MinWidth="75" ItemsSource="{Binding BaudListToBeShown}" SelectedItem="{Binding SerialPortToBeOpenedDetails[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <Label Content="Parity"/>
+            <ComboBox MinWidth="75" ItemsSource="{Binding ParityListToBeShown}" SelectedItem="{Binding SerialPortToBeOpenedDetails[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <Label Content="StopBit"/>
+            <ComboBox MinWidth="75" ItemsSource="{Binding StopBitListToBeShown}" SelectedItem="{Binding SerialPortToBeOpenedDetails[4], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <Label Content="HandShake"/>
+            <ComboBox MinWidth="75" ItemsSource="{Binding HandShakeListToBeShown}" SelectedItem="{Binding SerialPortToBeOpenedDetails[5], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        </StackPanel>
+        <!--Ethernet Panel : Communication details-->
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="1"
+            Orientation="Horizontal"
+            CanHorizontallyScroll="False"
+            Height="25"
+            Background="LightYellow" Visibility="{Binding UIVisibilityTracker[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <Label Content="Port"/>
             <ComboBox MinWidth="75"/>
             <Label Content="BaudRate"/>
@@ -67,6 +85,18 @@
             <ComboBox MinWidth="75"/>
             <Label Content="HandShake"/>
             <ComboBox MinWidth="75"/>
+        </StackPanel>
+        <!--Card Headers Communication is active and card labels are shown-->
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="1"
+            Orientation="Horizontal"
+            CanHorizontallyScroll="False"
+            Height="25"
+            Background="LightYellow" Visibility="{Binding UIVisibilityTracker[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <Label Content="                        Card 1 " Width="215"/>
+            <Label Content="                        Card 2" Width="215"/>
+            <Label Content="                        Card 3" Width="215"/>
         </StackPanel>
         <!--CARD UI-->
         <Grid Grid.Row="1"
@@ -92,7 +122,8 @@
                 </Grid.RowDefinitions>
                 <!--Card 1 Channel 1-->
                 <Grid Grid.Row="0"
-                      Grid.Column="0" Visibility="{Binding Card1Visibility[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Grid.Column="0" Visibility="{Binding Card1Visibility[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,0,1,0"
+                      >
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -115,9 +146,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightBlue" 
+                             Fill="{Binding Card1CommunicationStatus[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
                              StrokeStartLineCap="Round" StrokeLineJoin="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -197,7 +231,7 @@
                 </Grid>
                 <!--Card 1 Channel 2-->
                 <Grid Grid.Row="0" 
-                      Grid.Column="1" Visibility="{Binding Card1Visibility[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Grid.Column="1" Visibility="{Binding Card1Visibility[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="1,0,0,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -220,10 +254,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="{Binding Card1CommunicationStatus[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
-                             StrokeStartLineCap="Round" StrokeThickness="4"
-                             Opacity="{Binding Card1Activity[2] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                             StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -299,7 +335,7 @@
                 </Grid>
                 <!--Card 1 Channel 3-->
                 <Grid Grid.Row="1" 
-                      Grid.Column="0" Visibility="{Binding Card1Visibility[3], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Grid.Column="0" Visibility="{Binding Card1Visibility[3], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,0,1,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -322,10 +358,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="{Binding Card1CommunicationStatus[3], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
-                             StrokeStartLineCap="Round" StrokeThickness="4"
-                             Opacity="{Binding Card1Activity[3] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                             StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -402,7 +440,7 @@
                 </Grid>
                 <!--Card 1 Channel 4-->
                 <Grid Grid.Row="1" 
-                      Grid.Column="1"  Visibility="{Binding Card1Visibility[4], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Grid.Column="1"  Visibility="{Binding Card1Visibility[4], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="1,0,0,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -425,10 +463,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="{Binding Card1CommunicationStatus[4], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
-                             StrokeStartLineCap="Round" StrokeThickness="4"
-                             Opacity="{Binding Card1Activity[4] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                             StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -505,7 +545,7 @@
                 </Grid>
                 <!--Card 1 Channel 5-->
                 <Grid Grid.Row="2"
-                      Grid.Column="0" Visibility="{Binding Card1Visibility[5], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Grid.Column="0" Visibility="{Binding Card1Visibility[5], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,0,1,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -528,11 +568,13 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="{Binding Card1CommunicationStatus[5], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" 
                              StrokeEndLineCap="Round" 
-                             StrokeStartLineCap="Round" StrokeThickness="4"
-                             Opacity="{Binding Card1Activity[5] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                             StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -544,7 +586,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch5 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card1Activity[5] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -608,7 +651,7 @@
                 </Grid>
                 <!--Card 1 Channel 6-->
                 <Grid Grid.Row="2"
-                      Grid.Column="1" Visibility="{Binding Card1Visibility[6], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Grid.Column="1" Visibility="{Binding Card1Visibility[6], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="1,0,0,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -631,9 +674,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="{Binding Card1CommunicationStatus[6], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
                              StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -645,7 +691,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch6 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card1Activity[6] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -709,7 +756,7 @@
                 </Grid>
                 <!--Card 1 Channel 7-->
                 <Grid Grid.Row="3"
-                      Grid.Column="0" Visibility="{Binding Card1Visibility[7], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Grid.Column="0" Visibility="{Binding Card1Visibility[7], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,0,1,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -732,9 +779,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="{Binding Card1CommunicationStatus[7], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
                              StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -746,7 +796,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch7 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card1Activity[7] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -810,7 +861,7 @@
                 </Grid>
                 <!--Card 1 Channel 8-->
                 <Grid Grid.Row="3"
-                      Grid.Column="1" Visibility="{Binding Card1Visibility[8], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Grid.Column="1" Visibility="{Binding Card1Visibility[8], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="1,0,0,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -833,9 +884,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" StrokeDashCap="Round" 
+                             Fill="{Binding Card1CommunicationStatus[8], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" StrokeDashCap="Round" 
                              StrokeEndLineCap="Round" StrokeStartLineCap="Round" 
                              StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -847,7 +901,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch8 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card1Activity[8] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -925,7 +980,7 @@
                 <!--Card 2 Channel 1-->
                 <Grid Grid.Row="0"
                       Grid.Column="0" 
-                      Visibility="{Binding Card2Visibility[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card2Visibility[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,0,1,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -948,7 +1003,7 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" StrokeDashCap="Round" 
+                             Fill="{Binding Card2CommunicationStatus[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" StrokeDashCap="Round" 
                              StrokeEndLineCap="Round" StrokeStartLineCap="Round" 
                              StrokeLineJoin="Round" StrokeThickness="4">
                         <Ellipse.Effect>
@@ -964,7 +1019,8 @@
                     </Ellipse>
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch1 I: 25.7" FontFamily="Cascadia Mono" 
-                           FontSize="10" Foreground="#FF900A00"/>
+                           FontSize="10" Foreground="#FF900A00"
+                           Opacity="{Binding Card2Activity[1] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error #FF56FF00 for ok, Red for Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20"
@@ -1031,7 +1087,7 @@
                 <!--Card 2 Channel 2-->
                 <Grid Grid.Row="0"
                       Grid.Column="1" 
-                      Visibility="{Binding Card2Visibility[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card2Visibility[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="1,0,0,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1054,8 +1110,11 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" StrokeDashCap="Round" 
+                             Fill="{Binding Card2CommunicationStatus[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" StrokeDashCap="Round" 
                              StrokeEndLineCap="Round" StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -1066,7 +1125,8 @@
                     </Ellipse>
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch2 I: 25.7" FontFamily="Cascadia Mono"
-                           FontSize="10" Foreground="#FF900A00"/>
+                           FontSize="10" Foreground="#FF900A00"
+                           Opacity="{Binding Card2Activity[2] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -1131,7 +1191,7 @@
                 <!--Card 2 Channel 3-->
                 <Grid Grid.Row="1"
                       Grid.Column="0" 
-                      Visibility="{Binding Card2Visibility[3], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card2Visibility[3], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,0,1,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1154,8 +1214,11 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" StrokeDashCap="Round" StrokeEndLineCap="Round" 
+                             Fill="{Binding Card2CommunicationStatus[3], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" StrokeDashCap="Round" StrokeEndLineCap="Round" 
                              StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -1167,7 +1230,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch3 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card2Activity[3] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -1232,7 +1296,7 @@
                 <!--Card 2 Channel 4-->
                 <Grid Grid.Row="1"
                       Grid.Column="1" 
-                      Visibility="{Binding Card2Visibility[4], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card2Visibility[4], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="1,0,0,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1255,9 +1319,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen"
+                             Fill="{Binding Card2CommunicationStatus[4], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                              StrokeDashCap="Round" StrokeEndLineCap="Round"
                              StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -1269,7 +1336,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch4 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card2Activity[4] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -1334,7 +1402,7 @@
                 <!--Card 2 Channel 5-->
                 <Grid Grid.Row="2"
                       Grid.Column="0" 
-                      Visibility="{Binding Card2Visibility[5], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card2Visibility[5], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,0,1,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1357,9 +1425,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="{Binding Card2CommunicationStatus[5], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
                              StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -1371,7 +1442,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch5 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card2Activity[5] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -1436,7 +1508,7 @@
                 <!--Card 2 Channel 6-->
                 <Grid Grid.Row="2"
                       Grid.Column="1" 
-                      Visibility="{Binding Card2Visibility[6], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card2Visibility[6], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="1,0,0,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1459,9 +1531,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen"
+                             Fill="{Binding Card2CommunicationStatus[6], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
                              StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -1473,7 +1548,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch6 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card2Activity[6] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -1538,7 +1614,7 @@
                 <!--Card 2 Channel 7-->
                 <Grid Grid.Row="3"
                       Grid.Column="0" 
-                      Visibility="{Binding Card2Visibility[7], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card2Visibility[7], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,0,1,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1561,9 +1637,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="{Binding Card2CommunicationStatus[7], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round"
                              StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -1575,7 +1654,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch7 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card2Activity[7] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -1640,7 +1720,7 @@
                 <!--Card 2 Channel 8-->
                 <Grid Grid.Row="3"
                       Grid.Column="1" 
-                      Visibility="{Binding Card2Visibility[8], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card2Visibility[8], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="1,0,0,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1663,9 +1743,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="{Binding Card2CommunicationStatus[8], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
                              StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -1677,7 +1760,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch8 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card2Activity[8] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -1756,7 +1840,7 @@
                 <!--Card 3 Channel 1-->
                 <Grid Grid.Row="0"
                       Grid.Column="0" 
-                      Visibility="{Binding Card3Visibility[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card3Visibility[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,0,1,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1779,8 +1863,11 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" StrokeDashCap="Round" StrokeEndLineCap="Round" 
+                             Fill="{Binding Card3CommunicationStatus[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" StrokeDashCap="Round" StrokeEndLineCap="Round" 
                              StrokeStartLineCap="Round" StrokeLineJoin="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -1791,7 +1878,8 @@
                     </Ellipse>
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch1 I: 25.7" FontFamily="Cascadia Mono" 
-                           FontSize="10" Foreground="#FF900A00"/>
+                           FontSize="10" Foreground="#FF900A00"
+                           Opacity="{Binding Card3Activity[1] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error #FF56FF00 for ok, Red for Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" 
@@ -1803,7 +1891,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1824,7 +1912,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[1], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1844,7 +1932,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[0], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1859,7 +1947,7 @@
                 <!--Card 3 Channel 2-->
                 <Grid Grid.Row="0"
                       Grid.Column="1" 
-                      Visibility="{Binding Card3Visibility[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card3Visibility[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="1,0,0,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1882,9 +1970,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="{Binding Card3CommunicationStatus[2], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
                              StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -1895,7 +1986,8 @@
                     </Ellipse>
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch2 I: 25.7" FontFamily="Cascadia Mono"
-                           FontSize="10" Foreground="#FF900A00"/>
+                           FontSize="10" Foreground="#FF900A00"
+                           Opacity="{Binding Card3Activity[2] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3" 
@@ -1905,7 +1997,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[5], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1925,7 +2017,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[4], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1945,7 +2037,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[3], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -1960,7 +2052,7 @@
                 <!--Card 3 Channel 3-->
                 <Grid Grid.Row="1"
                       Grid.Column="0" 
-                      Visibility="{Binding Card3Visibility[3], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card3Visibility[3], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,0,1,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -1983,9 +2075,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="{Binding Card3CommunicationStatus[3], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
                              StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -1997,7 +2092,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch3 I: 25.7" 
                            FontFamily="Cascadia Mono" FontSize="10" 
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card3Activity[3] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -2007,7 +2103,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[8], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2027,7 +2123,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[7], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2047,7 +2143,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[6], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2062,7 +2158,7 @@
                 <!--Card 3 Channel 4-->
                 <Grid Grid.Row="1"
                       Grid.Column="1" 
-                      Visibility="{Binding Card3Visibility[4], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card3Visibility[4], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="1,0,0,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -2085,9 +2181,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="{Binding Card3CommunicationStatus[4], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
                              StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -2099,7 +2198,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch4 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card3Activity[4] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -2109,7 +2209,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[11], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2129,7 +2229,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[10], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2149,7 +2249,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[9], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2164,7 +2264,7 @@
                 <!--Card 3 Channel 5-->
                 <Grid Grid.Row="2"
                       Grid.Column="0" 
-                      Visibility="{Binding Card3Visibility[5], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card3Visibility[5], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,0,1,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -2187,10 +2287,13 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="{Binding Card3CommunicationStatus[5], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" 
                              StrokeEndLineCap="Round" 
                              StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -2208,11 +2311,12 @@
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
                              StrokeDashCap="Round" Stretch="UniformToFill"
-                             StrokeEndLineCap="Round" StrokeStartLineCap="Round">
+                             StrokeEndLineCap="Round" StrokeStartLineCap="Round"
+                             Opacity="{Binding Card3Activity[5] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[14], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2232,7 +2336,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[13], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2252,7 +2356,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[12], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2267,7 +2371,7 @@
                 <!--Card 3 Channel 6-->
                 <Grid Grid.Row="2"
                       Grid.Column="1" 
-                      Visibility="{Binding Card3Visibility[6], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card3Visibility[6], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="1,0,0,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -2290,9 +2394,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="{Binding Card3CommunicationStatus[6], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
                              StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -2304,7 +2411,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch6 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card3Activity[6] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -2314,7 +2422,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[17], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2334,7 +2442,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[16], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2354,7 +2462,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[15], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2369,7 +2477,7 @@
                 <!--Card 3 Channel 7-->
                 <Grid Grid.Row="3"
                       Grid.Column="0"
-                      Visibility="{Binding Card3Visibility[7], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card3Visibility[7], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0,0,1,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -2392,9 +2500,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" 
+                             Fill="{Binding Card3CommunicationStatus[7], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                              StrokeDashCap="Round" StrokeEndLineCap="Round" 
                              StrokeStartLineCap="Round" StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -2406,7 +2517,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch7 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card3Activity[7] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -2416,7 +2528,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[20], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2436,7 +2548,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[19], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2456,7 +2568,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[18], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2471,7 +2583,7 @@
                 <!--Card 3 Channel 8-->
                 <Grid Grid.Row="3"
                       Grid.Column="1" 
-                      Visibility="{Binding Card3Visibility[8], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                      Visibility="{Binding Card3Visibility[8], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="1,0,0,0">
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="1"/>
@@ -2494,9 +2606,12 @@
                     <!--Open close channel-->
                     <Ellipse Grid.Row="0" Grid.Column="0"
                              Height="20" Width="20"
-                             Fill="LightGreen" StrokeDashCap="Round" 
+                             Fill="{Binding Card3CommunicationStatus[8], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" StrokeDashCap="Round" 
                              StrokeEndLineCap="Round" StrokeStartLineCap="Round" 
                              StrokeThickness="4">
+                        <Ellipse.Effect>
+                            <DropShadowEffect/>
+                        </Ellipse.Effect>
                         <Ellipse.Stroke>
                             <RadialGradientBrush>
                                 <GradientStop Color="Black" Offset="0"/>
@@ -2508,7 +2623,8 @@
                     <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
                            Content="Ch8 I: 25.7"
                            FontFamily="Cascadia Mono" FontSize="10"
-                           Foreground="#FF900A00"/>
+                           Foreground="#FF900A00"
+                           Opacity="{Binding Card3Activity[8 ] , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <!--Voltage Error-->
                     <Ellipse Grid.Row="2" Grid.Column="1"
                              Height="20" Width="20" StrokeThickness="3"
@@ -2518,7 +2634,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[23], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2538,7 +2654,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[22], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
@@ -2558,7 +2674,7 @@
                         <Ellipse.Fill>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
-                                <GradientStop Color="#FF56FF00" Offset="1"/>
+                                <GradientStop Color="{Binding Card3ChannelErrorStatus[21], UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Offset="1"/>
                             </LinearGradientBrush>
                         </Ellipse.Fill>
                         <Ellipse.Stroke>
